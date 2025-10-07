@@ -1,1 +1,22 @@
 @import "tailwindcss";
+
+@theme {
+  --font-playfair: "Playfair Display", serif;
+
+  --color-background: #16161d;
+  --color-muted: #343a40;
+
+  --color-text-muted: #98a0a7;
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    @apply border-muted;
+  }
+
+  body {
+    @apply font-playfair bg-background text-white;
+  }
+}

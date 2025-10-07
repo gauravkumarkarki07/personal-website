@@ -10,11 +10,20 @@ import "../styles/index.css";
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>Gaurav Kumar Karki</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <nav>
+  <body class="flex flex-row relative">
+    <nav class="p-4 w-350px] sticky top-0 h-screen border-r">
       <PersonalInfoBar />
     </nav>
-    <slot />
+    <main class="p-4 w-full min-h-screen">
+      <slot />
+    </main>
   </body>
 </html>
