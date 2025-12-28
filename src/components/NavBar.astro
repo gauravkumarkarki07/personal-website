@@ -1,0 +1,21 @@
+---
+interface NavItem {
+  label: string;
+  link: string;
+}
+
+const navItems: NavItem[] = [
+  {
+    label: "Projects",
+    link: "/projects",
+  },
+  {
+    label: "Blogs",
+    link: "/blogs",
+  },
+];
+---
+
+<nav class="flex flex-row gap-4 justify-end w-full items-center p-4">
+  {navItems.map((item, index) => <a href={item.link}>{item.label}</a>)}
+</nav>

@@ -1,7 +1,38 @@
 ---
 import IndexLayout from "../layouts/IndexLayout.astro";
+import GithubIcon from "../assets/github-icon.svg";
+import LinkedinIcon from "../assets/linkedin-icon.svg";
 ---
 
 <IndexLayout>
-  <h1>hey</h1>
+  <div class="flex flex-col gap-6 w-full max-w-[700px] mt-20 text-lg">
+    <h1 class="text-7xl">Gaurav Kumar Karki</h1>
+    <p class="text-lg">
+      Hi! I’m a software engineer based in Melbourne, Australia with 2 years of
+      experience building SaaS products end-to-end. I focus on creating
+      reliable, scalable systems that turn complex ideas into real-world impact.
+    </p>
+    <div class="flex flex-row gap-4 items-end">
+      <span class="underline underline-offset-4">Get in Touch:</span>
+
+      <section class="flex flex-row gap-4 items-center">
+        <a
+          href="https://github.com/gauravkumarkarki07"
+          aria-label="GitHub Profile"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <GithubIcon class={"fill-white w-7 h-7 hover:fill-gray-500"} />
+        </a>
+        <a
+          href="https://www.linkedin.com/in/gaurav-kumar-karki/"
+          aria-label="Linkedin Profile"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <LinkedinIcon class={"fill-white w-8 h-8 hover:fill-gray-500"} />
+        </a>
+      </section>
+    </div>
+  </div>
 </IndexLayout>
