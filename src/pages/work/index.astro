@@ -1,0 +1,89 @@
+---
+import ProjectCard from "../../components/ProjectCard.astro";
+import IndexLayout from "../../layouts/IndexLayout.astro";
+import { projects } from "../../utils/workExp";
+
+interface ProfessionalExperience {
+  company: string;
+  role: string;
+  location?: string;
+  startDate: string;
+  endDate?: string;
+  responsibilities: string[];
+}
+
+const professionalExp: ProfessionalExperience[] = [
+  {
+    company: "Outback Yak",
+    role: "Software Engineer (Contract)",
+    location: "Melbourne, Australia",
+    startDate: "2024",
+    responsibilities: [
+      "Built a custom website and admin panel for Snevic, a non-profit organization, using Next.js and Payload CMS.",
+      "Enabled dynamic page creation, blog and event management, and user membership registration.",
+      "Built a static, responsive website for Anatomedia’s educational platform using Astro, significantly reducing client-side JavaScript for improved performance.",
+    ],
+  },
+  {
+    company: "Sensand",
+    role: "Software Engineer",
+    location: "Melbourne, Australia",
+    startDate: "Dec 2024",
+    endDate: "Nov 2025",
+    responsibilities: [
+      "Built and maintained geospatial features using Mapbox GL JS, including ODM, EOS satellite imagery, and NDVI visualisations.",
+      "Designed and implemented a data pipeline to ingest, parse, and normalize carbon registry data from sources such as Verra, Gold Standard, and ACCU.",
+      "Developed a modular activity logging and commenting system to monitor actions across the Land Management platform.",
+      "Maintained authentication and authorization flows using Auth0 and Permit.io.",
+      "Built and maintained core REST APIs for the carbon trading platform.",
+      "Refactored core UI components and supported migration to a modernized interface to improve user experience.",
+    ],
+  },
+  {
+    company: "Learn Tech",
+    role: "Full Stack Web Developer",
+    location: "Nepal",
+    startDate: "Mar 2022",
+    endDate: "Feb 2023",
+    responsibilities: [
+      "Developed REST APIs and frontend features for the company’s core web application, contributing to inventory and billing modules.",
+      "Worked on database design and backend logic in a startup environment.",
+      "Refactored UI modules into Blazor to improve maintainability.",
+      "Wrote efficient stored procedures using Dapper, Microsoft SQL Server, and .NET Core.",
+      "Collaborated closely with a small team to establish coding standards, deployment practices, and project documentation.",
+    ],
+  },
+];
+---
+
+<IndexLayout>
+  <div class="flex flex-col gap-10 mt-20 max-w-[900px]">
+    <h1 class="text-7xl">My Work</h1>
+
+    <!-- Professional Experience -->
+    <section class="flex flex-col gap-6">
+      <ul class="flex flex-col gap-8 ml-8">
+        {
+          professionalExp.map((exp) => (
+            <li class="flex flex-col gap-4">
+              <div class="flex flex-col">
+                <h3 class="text-xl font-semibold">
+                  {exp.role} · {exp.company}
+                </h3>
+                <span class="text-sm text-gray-300">
+                  {exp.location} · {exp.startDate} – {exp.endDate ?? "Present"}
+                </span>
+              </div>
+
+              <ul class="list-disc ml-6 text-gray-400 flex flex-col gap-1">
+                {exp.responsibilities.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</IndexLayout>

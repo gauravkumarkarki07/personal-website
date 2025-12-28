@@ -1,4 +1,6 @@
 ---
+import { cn } from "../utils/cn";
+
 interface NavItem {
   label: string;
   link: string;
@@ -6,16 +8,34 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   {
-    label: "Projects",
-    link: "/projects",
+    label: "Home",
+    link: "/",
+  },
+  {
+    label: "Work",
+    link: "/work",
   },
   {
     label: "Blogs",
     link: "/blogs",
   },
 ];
+
+const currentPath = Astro.url.pathname;
 ---
 
 <nav class="flex flex-row gap-4 justify-end w-full items-center p-4">
-  {navItems.map((item, index) => <a href={item.link}>{item.label}</a>)}
+  {
+    navItems.map((item) => (
+      <a
+        href={item.link}
+        class={cn(
+          "hover:underline underline-offset-4",
+          currentPath === item.link && "underline"
+        )}
+      >
+        {item.label}
+      </a>
+    ))
+  }
 </nav>

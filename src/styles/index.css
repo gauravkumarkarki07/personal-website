@@ -1,13 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #0c0c0c;
+  --color-background: #1e201f;
+
+  --color-foreground: #fcfcfe;
 
   --font-Poppins: "Poppins", serif;
 }
 
 @layer base {
   body {
-    @apply bg-background text-white font-Poppins;
+    @apply bg-background text-foreground font-Poppins;
   }
 }
