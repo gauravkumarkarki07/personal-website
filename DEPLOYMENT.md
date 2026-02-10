@@ -81,7 +81,7 @@ Make sure your site is deployed and accessible at the Cloudflare Pages URL.
 2. Navigate to **Pages** → **personal-website**
 3. Click **Custom domains** tab
 4. Click **Set up a custom domain**
-5. Enter `www.gauravkumarkarki.com`
+5. Enter `gauravkumarkarki07.com`
 6. Follow the DNS configuration instructions
 
 ### 3. DNS Configuration
@@ -98,7 +98,7 @@ If your domain is elsewhere:
 ### 4. SSL/TLS
 
 SSL certificates are automatically provisioned by Cloudflare. Your site will be available at:
-- ✅ `https://www.gauravkumarkarki.com`
+- ✅ `https://gauravkumarkarki07.com`
 
 ## Automatic Deployments (Optional)
 
