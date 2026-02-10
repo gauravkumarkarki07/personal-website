@@ -16,17 +16,6 @@ const allBlogPosts = await getCollection("blog", ({ data }) => !data.draft);
 const recentPosts = allBlogPosts
   .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
   .slice(0, 3);
-
-const techStack = [
-  "TypeScript",
-  "React",
-  "Next.js",
-  "Node.js",
-  "PostgreSQL",
-  "Tailwind CSS",
-  "Astro",
-  "Docker",
-];
 ---
 
 <IndexLayout>
@@ -68,21 +57,28 @@ const techStack = [
       </div>
     </AnimatedSection>
 
-    <!-- Tech Stack Section -->
-    <AnimatedSection delay={100}>
-      <div class="flex flex-col gap-6">
-        <h2 class="text-3xl font-bold">Tech Stack</h2>
-        <div class="flex flex-wrap gap-3">
-          {
-            techStack.map((tech, index) => (
-              <span
-                class="px-4 py-2 bg-foreground/5 border border-foreground/10 rounded-lg hover:bg-foreground/10 hover:border-blue-400/50 transition-all hover:scale-105"
-                style={`animation-delay: ${index * 50}ms`}
-              >
-                {tech}
-              </span>
-            ))
-          }
+    <!-- About Section -->
+    <AnimatedSection delay={400}>
+      <div
+        class="flex flex-col gap-6 p-8 bg-foreground/5 border border-foreground/10 rounded-lg"
+      >
+        <h2 class="text-3xl font-bold">About Me</h2>
+        <div class="flex flex-col gap-4 text-foreground/80">
+          <p>
+            I'm passionate about creating elegant solutions to complex problems.
+            My experience spans full-stack development, with a particular focus
+            on modern JavaScript frameworks and cloud technologies.
+          </p>
+          <p>
+            When I'm not coding, you can find me exploring Melbourne's coffee
+            scene, reading about emerging technologies, or contributing to
+            open-source projects.
+          </p>
+          <div class="flex gap-4 mt-2">
+            <a href="/work" class="text-blue-400 hover:underline font-medium">
+              View Work Experience →
+            </a>
+          </div>
         </div>
       </div>
     </AnimatedSection>
@@ -151,31 +147,5 @@ const techStack = [
         </AnimatedSection>
       )
     }
-
-    <!-- About Section -->
-    <AnimatedSection delay={400}>
-      <div
-        class="flex flex-col gap-6 p-8 bg-foreground/5 border border-foreground/10 rounded-lg"
-      >
-        <h2 class="text-3xl font-bold">About Me</h2>
-        <div class="flex flex-col gap-4 text-foreground/80">
-          <p>
-            I'm passionate about creating elegant solutions to complex problems.
-            My experience spans full-stack development, with a particular focus
-            on modern JavaScript frameworks and cloud technologies.
-          </p>
-          <p>
-            When I'm not coding, you can find me exploring Melbourne's coffee
-            scene, reading about emerging technologies, or contributing to
-            open-source projects.
-          </p>
-          <div class="flex gap-4 mt-2">
-            <a href="/work" class="text-blue-400 hover:underline font-medium">
-              View Work Experience →
-            </a>
-          </div>
-        </div>
-      </div>
-    </AnimatedSection>
   </div>
 </IndexLayout>
