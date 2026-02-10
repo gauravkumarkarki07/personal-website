@@ -1,0 +1,81 @@
+---
+import IndexLayout from "../layouts/IndexLayout.astro";
+import AnimatedSection from "../components/AnimatedSection.astro";
+---
+
+<IndexLayout
+  title="Resume - Gaurav Kumar Karki"
+  description="View and download Gaurav Kumar Karki's resume. Software Engineer with 3+ years of professional experience."
+>
+  <div class="flex flex-col gap-8 w-full max-w-[1000px] mx-auto mt-10">
+    <AnimatedSection>
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h1 class="text-5xl font-bold">Resume</h1>
+          <p class="text-foreground/70 mt-2">
+            Software Engineer | Full Stack Developer
+          </p>
+        </div>
+
+        <div class="flex gap-4 flex-wrap">
+          <a
+            href="/resume.pdf"
+            download
+            class="px-6 py-3 bg-blue-400 text-background rounded-lg hover:bg-blue-500 transition-colors font-medium"
+          >
+            Download PDF
+          </a>
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-6 py-3 border border-foreground/20 rounded-lg hover:bg-foreground/5 transition-colors font-medium"
+          >
+            Open in New Tab
+          </a>
+        </div>
+      </div>
+    </AnimatedSection>
+
+    <AnimatedSection delay={100}>
+      <div
+        class="w-full min-h-[800px] border border-foreground/20 rounded-lg overflow-hidden bg-foreground/5"
+      >
+        <iframe
+          src="/resume.pdf#view=FitH"
+          class="w-full h-[800px] md:h-[1000px]"
+          title="Resume PDF"
+        >
+          <p class="p-8 text-center">
+            Your browser doesn't support PDF viewing. Please{" "}
+            <a
+              href="/resume.pdf"
+              download
+              class="text-blue-400 hover:underline"
+            >
+              download the PDF
+            </a>{" "}
+            to view it.
+          </p>
+        </iframe>
+      </div>
+    </AnimatedSection>
+
+    <AnimatedSection delay={200}>
+      <div
+        class="p-6 bg-foreground/5 border border-foreground/10 rounded-lg text-center"
+      >
+        <p class="text-foreground/70">
+          Having trouble viewing the resume?{" "}
+          <a
+            href="/resume.pdf"
+            download
+            class="text-blue-400 hover:underline font-medium"
+          >
+            Download it here
+          </a>
+        </p>
+      </div>
+    </AnimatedSection>
+  </div>
+</IndexLayout>

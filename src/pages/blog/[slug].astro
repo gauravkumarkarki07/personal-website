@@ -1,0 +1,133 @@
+---
+import { getCollection } from "astro:content";
+import { format } from "date-fns";
+import getReadingTime from "reading-time";
+import IndexLayout from "../../layouts/IndexLayout.astro";
+import AnimatedSection from "../../components/AnimatedSection.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const readingTime = getReadingTime(post.body);
+
+const formattedDate = format(post.data.publishDate, "MMMM d, yyyy");
+const formattedUpdatedDate = post.data.updatedDate
+  ? format(post.data.updatedDate, "MMMM d, yyyy")
+  : null;
+
+// Get previous and next posts
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const sortedPosts = allPosts.sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()
+);
+const currentIndex = sortedPosts.findIndex((p) => p.slug === post.slug);
+const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
+const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
+---
+
+<IndexLayout title={post.data.title} description={post.data.description}>
+  <article class="flex flex-col gap-12 w-full max-w-[800px] mx-auto mt-10">
+    <AnimatedSection>
+      <header class="flex flex-col gap-4">
+        <h1 class="text-5xl font-bold leading-tight">{post.data.title}</h1>
+
+        <p class="text-xl text-foreground/70">
+          {post.data.description}
+        </p>
+
+        <div class="flex items-center gap-4 text-sm text-foreground/60">
+          <time datetime={post.data.publishDate.toISOString()}>
+            {formattedDate}
+          </time>
+          <span>•</span>
+          <span>{readingTime.text}</span>
+          {
+            formattedUpdatedDate && (
+              <>
+                <span>•</span>
+                <span>Updated {formattedUpdatedDate}</span>
+              </>
+            )
+          }
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+          {
+            post.data.tags.map((tag) => (
+              <span class="px-3 py-1 bg-blue-400/10 text-blue-400 text-sm rounded-md">
+                {tag}
+              </span>
+            ))
+          }
+        </div>
+      </header>
+    </AnimatedSection>
+
+    <AnimatedSection delay={100}>
+      <div
+        class="prose prose-invert prose-lg max-w-none
+        prose-headings:text-foreground prose-headings:font-bold
+        prose-p:text-foreground/80 prose-p:leading-relaxed
+        prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
+        prose-strong:text-foreground prose-strong:font-semibold
+        prose-code:text-blue-400 prose-code:bg-foreground/10 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:before:content-[''] prose-code:after:content-['']
+        prose-pre:bg-foreground/5 prose-pre:border prose-pre:border-foreground/10
+        prose-ul:text-foreground/80 prose-ol:text-foreground/80
+        prose-li:text-foreground/80
+        prose-blockquote:border-l-blue-400 prose-blockquote:text-foreground/70
+        prose-img:rounded-lg prose-img:border prose-img:border-foreground/10"
+      >
+        <Content />
+      </div>
+    </AnimatedSection>
+
+    {
+      (prevPost || nextPost) && (
+        <AnimatedSection delay={200}>
+          <nav class="border-t border-foreground/10 pt-8">
+            <div class="flex justify-between items-center gap-4">
+              {prevPost ? (
+                <a
+                  href={`/blog/${prevPost.slug}`}
+                  class="flex flex-col gap-1 hover:text-blue-400 transition-colors flex-1"
+                >
+                  <span class="text-sm text-foreground/60">← Previous</span>
+                  <span class="font-medium">{prevPost.data.title}</span>
+                </a>
+              ) : (
+                <div class="flex-1" />
+              )}
+
+              {nextPost ? (
+                <a
+                  href={`/blog/${nextPost.slug}`}
+                  class="flex flex-col gap-1 hover:text-blue-400 transition-colors flex-1 text-right"
+                >
+                  <span class="text-sm text-foreground/60">Next →</span>
+                  <span class="font-medium">{nextPost.data.title}</span>
+                </a>
+              ) : (
+                <div class="flex-1" />
+              )}
+            </div>
+          </nav>
+        </AnimatedSection>
+      )
+    }
+
+    <AnimatedSection delay={250}>
+      <div class="border-t border-foreground/10 pt-8">
+        <a href="/blog" class="text-blue-400 hover:underline font-medium">
+          ← Back to Blog
+        </a>
+      </div>
+    </AnimatedSection>
+  </article>
+</IndexLayout>

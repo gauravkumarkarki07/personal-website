@@ -1,0 +1,109 @@
+---
+import { getCollection } from "astro:content";
+import { format } from "date-fns";
+import IndexLayout from "../../layouts/IndexLayout.astro";
+import AnimatedSection from "../../components/AnimatedSection.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+
+const formattedStartDate = format(project.data.startDate, "MMM yyyy");
+const formattedEndDate = project.data.endDate
+  ? format(project.data.endDate, "MMM yyyy")
+  : "Present";
+---
+
+<IndexLayout
+  title={`${project.data.title} - Projects`}
+  description={project.data.description}
+>
+  <article class="flex flex-col gap-12 w-full max-w-[900px] mx-auto mt-10">
+    <AnimatedSection>
+      <div class="flex flex-col gap-6">
+        <div class="aspect-video w-full overflow-hidden rounded-lg">
+          <img
+            src={project.data.thumbnail}
+            alt={project.data.thumbnailAlt}
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <h1 class="text-5xl font-bold">{project.data.title}</h1>
+
+          <p class="text-xl text-foreground/70">
+            {project.data.description}
+          </p>
+
+          <div class="flex items-center gap-4 text-foreground/60">
+            <span>{formattedStartDate} - {formattedEndDate}</span>
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            {
+              project.data.tags.map((tag) => (
+                <span class="px-3 py-1 bg-blue-400/10 text-blue-400 text-sm rounded-md">
+                  {tag}
+                </span>
+              ))
+            }
+          </div>
+
+          <div class="flex gap-4 mt-2">
+            {
+              project.data.githubUrl && (
+                <a
+                  href={project.data.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-6 py-3 bg-foreground/5 border border-foreground/20 rounded-lg hover:bg-foreground/10 transition-colors font-medium"
+                >
+                  View on GitHub →
+                </a>
+              )
+            }
+            {
+              project.data.liveUrl && (
+                <a
+                  href={project.data.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-6 py-3 bg-blue-400 text-background rounded-lg hover:bg-blue-500 transition-colors font-medium"
+                >
+                  View Live Demo →
+                </a>
+              )
+            }
+          </div>
+        </div>
+      </div>
+    </AnimatedSection>
+
+    <AnimatedSection delay={100}>
+      <div
+        class="prose prose-invert prose-lg max-w-none prose-headings:text-foreground prose-p:text-foreground/80 prose-a:text-blue-400 prose-strong:text-foreground prose-code:text-blue-400"
+      >
+        <Content />
+      </div>
+    </AnimatedSection>
+
+    <AnimatedSection delay={200}>
+      <div class="border-t border-foreground/10 pt-8">
+        <a
+          href="/projects"
+          class="text-blue-400 hover:underline font-medium"
+        >
+          ← Back to Projects
+        </a>
+      </div>
+    </AnimatedSection>
+  </article>
+</IndexLayout>

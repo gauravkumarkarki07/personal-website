@@ -1,0 +1,44 @@
+---
+export interface Props {
+  delay?: number;
+  class?: string;
+}
+const { delay = 0, class: className } = Astro.props;
+---
+
+<div
+  class:list={["animate-section opacity-0", className]}
+  style={`animation-delay: ${delay}ms`}
+>
+  <slot />
+</div>
+
+<script>
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px",
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("animate-fadeInUp");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Observe all sections on initial load
+  document.querySelectorAll(".animate-section").forEach((el) => {
+    observer.observe(el);
+  });
+
+  // Re-observe sections after view transitions
+  document.addEventListener("astro:after-swap", () => {
+    document.querySelectorAll(".animate-section").forEach((el) => {
+      el.classList.remove("animate-fadeInUp");
+      el.classList.add("opacity-0");
+      observer.observe(el);
+    });
+  });
+</script>

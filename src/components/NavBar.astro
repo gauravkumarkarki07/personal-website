@@ -15,27 +15,50 @@ const navItems: NavItem[] = [
     label: "Work",
     link: "/work",
   },
-  // {
-  //   label: "Blogs",
-  //   link: "/blogs",
-  // },
+  {
+    label: "Projects",
+    link: "/projects",
+  },
+  {
+    label: "Blog",
+    link: "/blog",
+  },
+  {
+    label: "Resume",
+    link: "/resume",
+  },
 ];
 
 const currentPath = Astro.url.pathname;
 ---
 
-<nav class="flex flex-row gap-4 justify-end w-full items-center p-4">
-  {
-    navItems.map((item) => (
-      <a
-        href={item.link}
-        class={cn(
-          "hover:underline underline-offset-4",
-          currentPath === item.link && "underline"
-        )}
-      >
-        {item.label}
-      </a>
-    ))
-  }
+<nav
+  class="sticky top-0 z-50 backdrop-blur-md bg-background/80 border-b border-foreground/10"
+>
+  <div
+    class="flex flex-row gap-6 justify-between w-full items-center p-4 max-w-[1440px] mx-auto"
+  >
+    <a href="/" class="text-xl font-bold hover:text-blue-400 transition-colors">
+      GK
+    </a>
+
+    <div class="flex flex-row gap-6">
+      {
+        navItems.map((item) => (
+          <a
+            href={item.link}
+            class={cn(
+              "hover:text-blue-400 transition-colors relative pb-1",
+              currentPath === item.link && "text-blue-400"
+            )}
+          >
+            {item.label}
+            {currentPath === item.link && (
+              <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-400" />
+            )}
+          </a>
+        ))
+      }
+    </div>
+  </div>
 </nav>

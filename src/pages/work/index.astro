@@ -1,7 +1,6 @@
 ---
-import ProjectCard from "../../components/ProjectCard.astro";
 import IndexLayout from "../../layouts/IndexLayout.astro";
-import { projects } from "../../utils/workExp";
+import AnimatedSection from "../../components/AnimatedSection.astro";
 
 interface ProfessionalExperience {
   company: string;
@@ -21,7 +20,7 @@ const professionalExp: ProfessionalExperience[] = [
     responsibilities: [
       "Built a custom website and admin panel for Snevic, a non-profit organization, using Next.js and Payload CMS.",
       "Enabled dynamic page creation, blog and event management, and user membership registration.",
-      "Built a static, responsive website for Anatomedia’s educational platform using Astro, significantly reducing client-side JavaScript for improved performance.",
+      "Built a static, responsive website for Anatomedia's educational platform using Astro, significantly reducing client-side JavaScript for improved performance.",
     ],
   },
   {
@@ -46,7 +45,7 @@ const professionalExp: ProfessionalExperience[] = [
     startDate: "Mar 2022",
     endDate: "Feb 2023",
     responsibilities: [
-      "Developed REST APIs and frontend features for the company’s core web application, contributing to inventory and billing modules.",
+      "Developed REST APIs and frontend features for the company's core web application, contributing to inventory and billing modules.",
       "Worked on database design and backend logic in a startup environment.",
       "Refactored UI modules into Blazor to improve maintainability.",
       "Wrote efficient stored procedures using Dapper, Microsoft SQL Server, and .NET Core.",
@@ -56,34 +55,70 @@ const professionalExp: ProfessionalExperience[] = [
 ];
 ---
 
-<IndexLayout>
-  <div class="flex flex-col gap-10 mt-20 max-w-[900px]">
-    <h1 class="text-7xl">My Work</h1>
+<IndexLayout
+  title="Work Experience - Gaurav Kumar Karki"
+  description="Professional work experience as a Software Engineer. 3+ years building modern web applications across various industries."
+>
+  <div class="flex flex-col gap-16 w-full max-w-[900px] mx-auto mt-10">
+    <AnimatedSection>
+      <div class="flex flex-col gap-4">
+        <h1 class="text-5xl font-bold">Work Experience</h1>
+        <p class="text-xl text-foreground/70">
+          My professional journey in software engineering
+        </p>
+      </div>
+    </AnimatedSection>
 
-    <!-- Professional Experience -->
-    <section class="flex flex-col gap-6">
-      <ul class="flex flex-col gap-8 ml-8">
-        {
-          professionalExp.map((exp) => (
-            <li class="flex flex-col gap-4">
-              <div class="flex flex-col">
-                <h3 class="text-xl font-semibold">
-                  {exp.role} · {exp.company}
-                </h3>
-                <span class="text-sm text-gray-300">
-                  {exp.location} · {exp.startDate} – {exp.endDate ?? "Present"}
-                </span>
+    <div class="flex flex-col gap-12">
+      {
+        professionalExp.map((exp, index) => (
+          <AnimatedSection delay={index * 100 + 100}>
+            <div class="flex flex-col gap-4 p-6 bg-foreground/5 border border-foreground/10 rounded-lg hover:bg-foreground/10 transition-all">
+              <div class="flex flex-col gap-2">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h3 class="text-2xl font-bold">{exp.role}</h3>
+                  <span class="text-2xl text-foreground/40">·</span>
+                  <span class="text-2xl text-blue-400">{exp.company}</span>
+                </div>
+                <div class="flex items-center gap-3 text-foreground/60">
+                  {exp.location && (
+                    <>
+                      <span>{exp.location}</span>
+                      <span>·</span>
+                    </>
+                  )}
+                  <span>
+                    {exp.startDate} – {exp.endDate ?? "Present"}
+                  </span>
+                </div>
               </div>
 
-              <ul class="list-disc ml-6 text-gray-400 flex flex-col gap-1">
+              <ul class="flex flex-col gap-3 mt-2">
                 {exp.responsibilities.map((item) => (
-                  <li>{item}</li>
+                  <li class="flex gap-3 text-foreground/80">
+                    <span class="text-blue-400 mt-1.5">▸</span>
+                    <span class="flex-1">{item}</span>
+                  </li>
                 ))}
               </ul>
-            </li>
-          ))
-        }
-      </ul>
-    </section>
+            </div>
+          </AnimatedSection>
+        ))
+      }
+    </div>
+
+    <AnimatedSection delay={400}>
+      <div class="border-t border-foreground/10 pt-8 text-center">
+        <p class="text-foreground/70 mb-4">
+          Interested in working together?
+        </p>
+        <a
+          href="/resume"
+          class="inline-block px-6 py-3 bg-blue-400 text-background rounded-lg hover:bg-blue-500 transition-colors font-medium"
+        >
+          View My Resume
+        </a>
+      </div>
+    </AnimatedSection>
   </div>
 </IndexLayout>

@@ -1,0 +1,200 @@
+---
+title: "TypeScript Best Practices for Web Applications"
+description: "Practical tips and patterns I've learned from building production TypeScript applications over the past 3 years."
+publishDate: 2025-02-05
+tags: ["TypeScript", "JavaScript", "Best Practices", "Web Development"]
+draft: false
+---
+
+## Introduction
+
+TypeScript has become the de facto standard for building modern web applications, and for good reason. After working with TypeScript professionally for 3+ years, I've learned some patterns that make code more maintainable and catch bugs before they reach production.
+
+## 1. Strict Mode is Your Friend
+
+Always enable strict mode in your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true
+  }
+}
+```
+
+This catches so many bugs at compile time. Trust me, it's worth the initial friction.
+
+## 2. Use Zod for Runtime Validation
+
+TypeScript only provides compile-time type safety. For runtime validation (API responses, user input), use Zod:
+
+```typescript
+import { z } from "zod";
+
+const userSchema = z.object({
+  id: z.string(),
+  email: z.string().email(),
+  name: z.string().min(1),
+  age: z.number().int().positive().optional(),
+});
+
+type User = z.infer<typeof userSchema>;
+
+// Runtime validation
+const result = userSchema.safeParse(apiResponse);
+if (result.success) {
+  const user: User = result.data;
+  // user is now safely typed
+}
+```
+
+This pattern is powerful because:
+- Single source of truth for types and validation
+- Great error messages for debugging
+- Type inference means less boilerplate
+
+## 3. Discriminated Unions for State Management
+
+Instead of optional fields and null checks everywhere, use discriminated unions:
+
+```typescript
+type LoadingState<T> =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "success"; data: T }
+  | { status: "error"; error: Error };
+
+function renderUser(state: LoadingState<User>) {
+  switch (state.status) {
+    case "idle":
+      return "Click to load";
+    case "loading":
+      return "Loading...";
+    case "success":
+      return state.data.name; // TypeScript knows data exists
+    case "error":
+      return state.error.message;
+  }
+}
+```
+
+TypeScript's exhaustiveness checking ensures you handle all cases.
+
+## 4. Generic Utility Types
+
+Create reusable utility types for common patterns:
+
+```typescript
+// Make all properties of T optional recursively
+type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
+
+// Extract promise resolved value
+type Awaited<T> = T extends Promise<infer U> ? U : T;
+
+// Make specific keys required
+type RequireKeys<T, K extends keyof T> = T & Required<Pick<T, K>>;
+```
+
+These save time and make complex types easier to understand.
+
+## 5. Avoid `any` at All Costs
+
+Using `any` defeats the purpose of TypeScript. Instead:
+
+```typescript
+// Bad
+function process(data: any) {
+  return data.value;
+}
+
+// Good - use unknown and type guard
+function process(data: unknown) {
+  if (typeof data === "object" && data !== null && "value" in data) {
+    return (data as { value: unknown }).value;
+  }
+  throw new Error("Invalid data");
+}
+
+// Better - use Zod
+const dataSchema = z.object({ value: z.string() });
+function process(data: unknown) {
+  const result = dataSchema.parse(data);
+  return result.value; // Fully typed!
+}
+```
+
+## 6. Type Your React Components Properly
+
+For React components, be explicit about props:
+
+```typescript
+interface ButtonProps {
+  variant: "primary" | "secondary";
+  size?: "small" | "medium" | "large";
+  onClick: () => void;
+  children: React.ReactNode;
+}
+
+function Button({
+  variant,
+  size = "medium",
+  onClick,
+  children
+}: ButtonProps) {
+  return (
+    <button
+      className={`btn-${variant} btn-${size}`}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+}
+```
+
+Avoid using `React.FC` - it has some gotchas and adds unnecessary complexity.
+
+## 7. Use const Assertions
+
+For literal types, use const assertions:
+
+```typescript
+// Without const assertion
+const config = {
+  apiUrl: "https://api.example.com",
+  timeout: 5000,
+}; // Type: { apiUrl: string; timeout: number }
+
+// With const assertion
+const config = {
+  apiUrl: "https://api.example.com",
+  timeout: 5000,
+} as const; // Type: { readonly apiUrl: "https://api.example.com"; readonly timeout: 5000 }
+```
+
+This gives you more precise types and catches mutations.
+
+## 8. Organize Types in Separate Files
+
+For large projects, keep types organized:
+
+```
+src/
+  types/
+    api.ts      # API response types
+    models.ts   # Domain models
+    utils.ts    # Utility types
+    index.ts    # Re-exports
+```
+
+This makes types easy to find and prevents circular dependencies.
+
+## Conclusion
+
+These patterns have saved me countless hours of debugging and made my code more maintainable. TypeScript is a powerful tool, but it's most effective when you follow best practices and leverage its advanced features.
+
+What are your favorite TypeScript patterns? Let me know on [GitHub](https://github.com/gauravkumarkarki07)!

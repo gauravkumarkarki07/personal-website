@@ -1,18 +1,185 @@
 ---
+import { getCollection } from "astro:content";
+import getReadingTime from "reading-time";
 import IndexLayout from "../layouts/IndexLayout.astro";
+import AnimatedSection from "../components/AnimatedSection.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import BlogCard from "../components/BlogCard.astro";
+
+const allProjects = await getCollection("projects");
+const featuredProjects = allProjects
+  .filter((project) => project.data.featured)
+  .sort((a, b) => b.data.startDate.getTime() - a.data.startDate.getTime())
+  .slice(0, 3);
+
+const allBlogPosts = await getCollection("blog", ({ data }) => !data.draft);
+const recentPosts = allBlogPosts
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+  .slice(0, 3);
+
+const techStack = [
+  "TypeScript",
+  "React",
+  "Next.js",
+  "Node.js",
+  "PostgreSQL",
+  "Tailwind CSS",
+  "Astro",
+  "Docker",
+];
 ---
 
 <IndexLayout>
-  <div class="flex flex-col gap-6 w-full max-w-[700px] mt-20 text-lg">
-    <section class="flex flex-col gap-2">
-      <h1 class="text-7xl">Gaurav Kumar Karki</h1>
-      <span class="text-2xl text-foreground/70">Software Engineer</span>
-    </section>
-    <p class="flex flex-col">
-      <span>Hi,</span>
-      I am a software engineer based in Melbourne, Australia. I have about 3 years
-      of professional software development experience primarily in web application
-      development.
-    </p>
+  <div class="flex flex-col gap-24 w-full max-w-[1000px] mx-auto">
+    <!-- Hero Section -->
+    <AnimatedSection class="mt-20">
+      <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-3">
+          <h1 class="text-6xl md:text-7xl font-bold leading-tight">
+            Gaurav Kumar Karki
+          </h1>
+          <p class="text-2xl md:text-3xl text-blue-400 font-medium">
+            Software Engineer
+          </p>
+        </div>
+
+        <p class="text-xl text-foreground/80 max-w-[700px] leading-relaxed">
+          Hi, I'm a software engineer based in Melbourne, Australia. I have
+          about 3 years of professional software development experience
+          primarily in web application development. I specialize in building
+          modern, scalable web applications with a focus on user experience and
+          performance.
+        </p>
+
+        <div class="flex gap-4 mt-4 flex-wrap">
+          <a
+            href="/projects"
+            class="px-6 py-3 bg-blue-400 text-background rounded-lg hover:bg-blue-500 transition-all font-medium hover:scale-105"
+          >
+            View Projects
+          </a>
+          <a
+            href="/resume"
+            class="px-6 py-3 border border-foreground/20 rounded-lg hover:bg-foreground/5 transition-all font-medium hover:scale-105"
+          >
+            Download Resume
+          </a>
+        </div>
+      </div>
+    </AnimatedSection>
+
+    <!-- Tech Stack Section -->
+    <AnimatedSection delay={100}>
+      <div class="flex flex-col gap-6">
+        <h2 class="text-3xl font-bold">Tech Stack</h2>
+        <div class="flex flex-wrap gap-3">
+          {
+            techStack.map((tech, index) => (
+              <span
+                class="px-4 py-2 bg-foreground/5 border border-foreground/10 rounded-lg hover:bg-foreground/10 hover:border-blue-400/50 transition-all hover:scale-105"
+                style={`animation-delay: ${index * 50}ms`}
+              >
+                {tech}
+              </span>
+            ))
+          }
+        </div>
+      </div>
+    </AnimatedSection>
+
+    <!-- Featured Projects Section -->
+    {
+      featuredProjects.length > 0 && (
+        <AnimatedSection delay={200}>
+          <div class="flex flex-col gap-8">
+            <div class="flex justify-between items-center">
+              <h2 class="text-3xl font-bold">Featured Projects</h2>
+              <a
+                href="/projects"
+                class="text-blue-400 hover:underline font-medium"
+              >
+                View all →
+              </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featuredProjects.map((project) => (
+                <ProjectCard
+                  thumbnail={project.data.thumbnail}
+                  title={project.data.title}
+                  description={project.data.description}
+                  tags={project.data.tags}
+                  slug={project.slug}
+                  githubUrl={project.data.githubUrl}
+                  liveUrl={project.data.liveUrl}
+                />
+              ))}
+            </div>
+          </div>
+        </AnimatedSection>
+      )
+    }
+
+    <!-- Recent Blog Posts Section -->
+    {
+      recentPosts.length > 0 && (
+        <AnimatedSection delay={300}>
+          <div class="flex flex-col gap-8">
+            <div class="flex justify-between items-center">
+              <h2 class="text-3xl font-bold">Latest Blog Posts</h2>
+              <a
+                href="/blog"
+                class="text-blue-400 hover:underline font-medium"
+              >
+                View all →
+              </a>
+            </div>
+
+            <div class="flex flex-col gap-6">
+              {recentPosts.map((post) => {
+                const readingTime = getReadingTime(post.body);
+                return (
+                  <BlogCard
+                    title={post.data.title}
+                    description={post.data.description}
+                    publishDate={post.data.publishDate}
+                    readingTime={readingTime.text}
+                    tags={post.data.tags}
+                    slug={post.slug}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        </AnimatedSection>
+      )
+    }
+
+    <!-- About Section -->
+    <AnimatedSection delay={400}>
+      <div class="flex flex-col gap-6 p-8 bg-foreground/5 border border-foreground/10 rounded-lg">
+        <h2 class="text-3xl font-bold">About Me</h2>
+        <div class="flex flex-col gap-4 text-foreground/80">
+          <p>
+            I'm passionate about creating elegant solutions to complex problems.
+            My experience spans full-stack development, with a particular focus
+            on modern JavaScript frameworks and cloud technologies.
+          </p>
+          <p>
+            When I'm not coding, you can find me exploring Melbourne's coffee
+            scene, reading about emerging technologies, or contributing to
+            open-source projects.
+          </p>
+          <div class="flex gap-4 mt-2">
+            <a
+              href="/work"
+              class="text-blue-400 hover:underline font-medium"
+            >
+              View Work Experience →
+            </a>
+          </div>
+        </div>
+      </div>
+    </AnimatedSection>
   </div>
 </IndexLayout>

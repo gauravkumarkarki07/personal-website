@@ -1,7 +1,21 @@
 ---
+import { ViewTransitions } from "astro:transitions";
 import Footer from "../components/Footer.astro";
 import NavBar from "../components/NavBar.astro";
+import BackToTop from "../components/BackToTop.astro";
 import "../styles/index.css";
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Gaurav Kumar Karki - Software Engineer",
+  description = "Melbourne-based software engineer with 3+ years of experience building modern web applications. Specializing in full-stack development with React, Next.js, and TypeScript.",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <html lang="en">
@@ -10,7 +24,22 @@ import "../styles/index.css";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Gaurav Kumar Karki</title>
+    <link rel="canonical" href={canonicalURL} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,6 +47,8 @@ import "../styles/index.css";
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
+
+    <ViewTransitions />
   </head>
   <body class="flex flex-col max-w-[1440px] mx-auto min-h-screen">
     <NavBar />
@@ -26,5 +57,6 @@ import "../styles/index.css";
     </main>
 
     <Footer />
+    <BackToTop />
   </body>
 </html>

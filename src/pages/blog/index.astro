@@ -1,0 +1,68 @@
+---
+import { getCollection } from "astro:content";
+import getReadingTime from "reading-time";
+import IndexLayout from "../../layouts/IndexLayout.astro";
+import AnimatedSection from "../../components/AnimatedSection.astro";
+import BlogCard from "../../components/BlogCard.astro";
+
+const allBlogPosts = await getCollection("blog", ({ data }) => !data.draft);
+const sortedPosts = allBlogPosts.sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()
+);
+---
+
+<IndexLayout
+  title="Blog - Gaurav Kumar Karki"
+  description="Read my thoughts on software engineering, web development, and technology. Tutorials, insights, and learnings from building modern applications."
+>
+  <div class="flex flex-col gap-12 w-full max-w-[1000px] mx-auto mt-10">
+    <AnimatedSection>
+      <div class="flex flex-col gap-4">
+        <h1 class="text-5xl font-bold">Blog</h1>
+        <p class="text-xl text-foreground/70">
+          Thoughts on software engineering, web development, and more
+        </p>
+        <p class="text-foreground/60">
+          {sortedPosts.length} {sortedPosts.length === 1 ? "post" : "posts"}
+        </p>
+      </div>
+    </AnimatedSection>
+
+    <AnimatedSection delay={100}>
+      <div class="flex flex-col gap-6">
+        {
+          sortedPosts.map((post, index) => {
+            const readingTime = getReadingTime(post.body);
+            return (
+              <div
+                style={`animation-delay: ${(index + 2) * 50}ms`}
+                class="animate-section opacity-0"
+              >
+                <BlogCard
+                  title={post.data.title}
+                  description={post.data.description}
+                  publishDate={post.data.publishDate}
+                  readingTime={readingTime.text}
+                  tags={post.data.tags}
+                  slug={post.slug}
+                />
+              </div>
+            );
+          })
+        }
+      </div>
+    </AnimatedSection>
+
+    {
+      sortedPosts.length === 0 && (
+        <AnimatedSection delay={100}>
+          <div class="text-center p-12 bg-foreground/5 rounded-lg border border-foreground/10">
+            <p class="text-xl text-foreground/70">
+              No blog posts yet. Check back soon!
+            </p>
+          </div>
+        </AnimatedSection>
+      )
+    }
+  </div>
+</IndexLayout>
