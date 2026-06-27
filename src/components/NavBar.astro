@@ -1,60 +1,21 @@
 ---
-import { cn } from "../utils/cn";
-
-interface NavItem {
-  label: string;
-  link: string;
-}
-
-const navItems: NavItem[] = [
-  {
-    label: "Home",
-    link: "/",
-  },
-  {
-    label: "Work",
-    link: "/work",
-  },
-  {
-    label: "Projects",
-    link: "/projects",
-  },
-  {
-    label: "Blog",
-    link: "/blog",
-  },
-  {
-    label: "Resume",
-    link: "/resume",
-  },
-];
-
 const currentPath = Astro.url.pathname;
 ---
 
-<nav
-  class="sticky top-0 z-50 backdrop-blur-md bg-background/80 border-b border-foreground/10"
->
-  <div
-    class="flex flex-row gap-6 justify-end w-full items-center p-4 max-w-[1440px] mx-auto"
-  >
-    <div class="flex flex-row gap-6">
-      {
-        navItems.map((item) => (
-          <a
-            href={item.link}
-            class={cn(
-              "hover:text-blue-400 transition-colors relative pb-1",
-              currentPath === item.link && "text-blue-400"
-            )}
-          >
-            {item.label}
-            {currentPath === item.link && (
-              <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-400" />
-            )}
-          </a>
-        ))
-      }
-    </div>
+<nav class="sticky top-0 z-50 backdrop-blur-md bg-background/90 border-b border-border">
+  <div class="flex flex-row justify-between w-full items-center px-6 py-4 max-w-[780px] mx-auto">
+    <a href="/" class="flex items-center gap-2 group font-mono text-sm">
+      <span class="w-2 h-2 rounded-full bg-accent inline-block"></span>
+      <span class="text-foreground/80 group-hover:text-foreground transition-colors">gaurav.karki</span>
+      <span class="text-muted">/</span>
+      <span class="text-muted group-hover:text-muted-2 transition-colors">software-engineer</span>
+    </a>
+
+    <a
+      href="/resume"
+      class="font-mono text-xs px-4 py-2 border border-border rounded-md text-foreground/70 hover:text-foreground hover:border-foreground/20 transition-all"
+    >
+      Résumé
+    </a>
   </div>
 </nav>
