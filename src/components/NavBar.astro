@@ -3,19 +3,19 @@ const currentPath = Astro.url.pathname;
 ---
 
 <nav class="sticky top-0 z-50 backdrop-blur-md bg-background/90 border-b border-border">
-  <div class="flex flex-row justify-between w-full items-center px-6 py-4 max-w-[780px] mx-auto">
-    <a href="/" class="flex items-center gap-2 group font-mono text-sm">
-      <span class="w-2 h-2 rounded-full bg-accent inline-block"></span>
-      <span class="text-foreground/80 group-hover:text-foreground transition-colors">gaurav.karki</span>
-      <span class="text-muted">/</span>
-      <span class="text-muted group-hover:text-muted-2 transition-colors">software-engineer</span>
+  <div class="flex flex-row justify-between w-full items-center px-4 sm:px-6 py-4 max-w-[780px] mx-auto gap-4">
+    <a href="/" class="flex items-center gap-2 group font-mono text-sm min-w-0">
+      <span class="w-2 h-2 rounded-full bg-accent shrink-0 inline-block"></span>
+      <span class="text-foreground/80 group-hover:text-foreground transition-colors truncate">gaurav.karki</span>
+      <span class="text-muted hidden sm:inline">/</span>
+      <span class="text-muted group-hover:text-muted-2 transition-colors hidden sm:inline">software-engineer</span>
     </a>
 
     <a
       href="https://www.linkedin.com/in/gaurav-kumar-karki/"
       target="_blank"
       rel="noopener noreferrer"
-      class="font-mono text-xs px-4 py-2 border border-border rounded-md text-foreground/70 hover:text-foreground hover:border-foreground/20 transition-all"
+      class="font-mono text-xs px-3 sm:px-4 py-2 border border-border rounded-md text-foreground/70 hover:text-foreground hover:border-foreground/20 transition-all shrink-0"
     >
       LinkedIn →
     </a>

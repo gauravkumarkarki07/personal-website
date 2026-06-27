@@ -106,25 +106,25 @@ const experience = [
 <IndexLayout>
   <div class="flex flex-col w-full max-w-[780px] mx-auto">
     <!-- ── Hero ────────────────────────────────────────────────── -->
-    <AnimatedSection class="pt-20 pb-24">
-      <div class="flex flex-col gap-7">
+    <AnimatedSection class="pt-14 sm:pt-20 pb-16 sm:pb-24">
+      <div class="flex flex-col gap-6 sm:gap-7">
         <p class="comment-label">// based in Melbourne, Australia</p>
 
         <div class="flex flex-col gap-3">
           <h1
-            class="text-5xl md:text-6xl font-bold leading-[1.06] tracking-tight text-foreground"
+            class="text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.06] tracking-tight text-foreground"
           >
             Gaurav Kumar<br />Karki
           </h1>
           <p class="text-lg text-muted-2 font-light">Software Engineer</p>
         </div>
 
-        <p class="text-base text-foreground/60 leading-relaxed max-w-[540px]">
+        <p class="text-base text-foreground/80 leading-relaxed w-full sm:max-w-[540px]">
           Mostly full-stack, but happiest in the backend. Designing systems,
           modelling databases and handling system complexities. All startup
           experience so used to wearing multiple hats and shipping fast.
         </p>
-        <p class="text-base text-foreground/60 leading-relaxed max-w-[540px]">
+        <p class="text-base text-foreground/80 leading-relaxed w-full sm:max-w-[540px]">
           When I'm not writing code, I'm usually reading and consuming
           astrophysics, cosmology, or physics contents and somehow ending up in
           philosophy.
@@ -141,7 +141,7 @@ const experience = [
             href="https://github.com/gauravkumarkarki07"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center px-5 py-2.5 border border-border rounded-lg text-sm text-foreground/65 hover:text-foreground hover:border-foreground/15 transition-all"
+            class="inline-flex items-center px-5 py-2.5 border border-border rounded-lg text-sm text-foreground/75 hover:text-foreground hover:border-foreground/15 transition-all"
           >
             GitHub →
           </a>
@@ -169,12 +169,12 @@ const experience = [
     </AnimatedSection>
 
     <!-- ── About ────────────────────────────────────────────────── -->
-    <AnimatedSection delay={150} class="py-24 border-t border-border">
+    <AnimatedSection delay={150} class="py-16 sm:py-24 border-t border-border">
       <div class="flex flex-col gap-10">
         <p class="comment-label">// 01 · about</p>
 
         <div
-          class="flex flex-col gap-3 text-foreground/60 leading-relaxed text-[0.95rem] max-w-[580px]"
+          class="flex flex-col gap-3 text-foreground/80 leading-relaxed text-[0.95rem] w-full sm:max-w-[580px]"
         >
           <p>
             Software engineer based in Melbourne. Full-stack, but the backend is
@@ -205,7 +205,7 @@ const experience = [
     <AnimatedSection
       id="experience"
       delay={150}
-      class="py-24 border-t border-border"
+      class="py-16 sm:py-24 border-t border-border"
     >
       <div class="flex flex-col gap-10">
         <div class="flex flex-col gap-1">
@@ -240,7 +240,7 @@ const experience = [
                 </div>
                 <ul class="flex flex-col gap-2">
                   {job.bullets.map((b) => (
-                    <li class="flex gap-3 text-sm text-foreground/60 leading-relaxed">
+                    <li class="flex gap-3 text-sm text-foreground/80 leading-relaxed">
                       <span class="text-accent mt-0.5 shrink-0">▸</span>
                       <span>{b}</span>
                     </li>
@@ -254,7 +254,7 @@ const experience = [
     </AnimatedSection>
 
     <!-- ── Unbuilt ──────────────────────────────────────────────── -->
-    <AnimatedSection delay={150} class="py-24 border-t border-border">
+    <AnimatedSection delay={150} class="py-16 sm:py-24 border-t border-border">
       <div class="flex flex-col gap-10">
         <div class="flex flex-col gap-2">
           <p class="comment-label">// 03 · side projects</p>
@@ -273,7 +273,7 @@ const experience = [
             {
               startedNeverFinished.map((item) => (
                 <div class="py-4 flex items-start justify-between gap-4">
-                  <span class="text-sm text-foreground/70">{item}</span>
+                  <span class="text-sm text-foreground/85">{item}</span>
                 </div>
               ))
             }
@@ -289,7 +289,7 @@ const experience = [
             {
               activelyProcrastinating.map((item) => (
                 <div class="py-4 flex items-start justify-between gap-4">
-                  <span class="text-sm text-foreground/70">{item}</span>
+                  <span class="text-sm text-foreground/85">{item}</span>
                   <span class="font-mono text-xs text-muted shrink-0">
                     status: "soon"
                   </span>
@@ -308,7 +308,7 @@ const experience = [
             {
               hopingToBuildOneDay.map((item) => (
                 <div class="py-4 flex items-start justify-between gap-4">
-                  <span class="text-sm text-foreground/70">{item}</span>
+                  <span class="text-sm text-foreground/85">{item}</span>
                   <span class="font-mono text-xs text-muted shrink-0">
                     eta: unknown
                   </span>
@@ -330,7 +330,7 @@ const experience = [
     </AnimatedSection>
 
     <!-- ── Contact ───────────────────────────────────────────────── -->
-    <AnimatedSection delay={150} class="py-24 border-t border-border">
+    <AnimatedSection delay={150} class="py-16 sm:py-24 border-t border-border">
       <div class="flex flex-col gap-8">
         <div class="code-block p-6 flex flex-col gap-6">
           <div class="flex flex-col gap-1">

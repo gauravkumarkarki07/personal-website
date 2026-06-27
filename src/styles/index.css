@@ -4,11 +4,11 @@
   --color-background: #0d0f13;
   --color-surface:    #131720;
   --color-surface-2:  #1a1f2e;
-  --color-foreground: #e7e9ec;
-  --color-muted:      #5a616b;
-  --color-muted-2:    #8a9199;
-  --color-accent:     #7dd3a8;
-  --color-border:     rgba(255, 255, 255, 0.07);
+  --color-foreground: #dde1e7;
+  --color-muted:      #6b7280;
+  --color-muted-2:    #9ca3af;
+  --color-accent:     #6ee7b7;
+  --color-border:     rgba(255, 255, 255, 0.10);
   --font-Poppins:     "Poppins", sans-serif;
   --font-mono:        "JetBrains Mono", "Fira Code", ui-monospace, monospace;
   --shadow-card:      0 2px 20px rgba(0, 0, 0, 0.5);
@@ -105,8 +105,16 @@
   border: 1px solid var(--color-border);
   border-radius: 10px;
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.75rem;
   line-height: 1.8;
+  overflow: hidden;
+}
+@media (min-width: 640px) {
+  .code-block { font-size: 0.82rem; }
+}
+.code-block pre {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .code-block .window-dots span {
   display: inline-block;
