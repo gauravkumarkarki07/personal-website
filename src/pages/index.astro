@@ -2,107 +2,147 @@
 import IndexLayout from "../layouts/IndexLayout.astro";
 import AnimatedSection from "../components/AnimatedSection.astro";
 
-const stack = ["TypeScript", "React", "Next.js", "Astro", "Node.js", "Mapbox GL", "PostgreSQL", ".NET", "Auth0", "Payload CMS"];
+// ── add your unbuilt items here ──────────────────────────────
+const startedNeverFinished = [
+  "Nginx replica",
+  "IoT heart rate tracker with a web dashboard — hardware records, web app shows the graphs",
+  "Resume Builder",
+  "Ghar — a real estate web app",
+  "Much more I've quietly abandoned...",
+];
 
-const nowItems = [
-  { key: "building", val: "Websites & platforms, contracting via Outback Yak" },
-  { key: "reading",  val: "Emerging tech & systems design" },
-  { key: "coffee",   val: "Somewhere in Melbourne, almost certainly" },
-  { key: "writing",  val: "Navigating Melbourne's tech scene →", href: "/blog" },
+const activelyProcrastinating = [
+  "Learning Go (it's been 'next month' for a while now)",
+  "Learning C (same situation)",
+];
+
+const hopingToBuildOneDay: string[] = [
+  "Game Engine (Jonathan Blow said to not limit yourself with just web development)",
+  "Games (at least one small and one big, eventually, maybe ? Who knows)",
+  "A compiler or a language, just to say I did.",
+  "A good and calm life (Definitely thisssssss)",
+];
+// ─────────────────────────────────────────────────────────────
+
+const stack = [
+  "TypeScript",
+  "React",
+  "Next.js",
+  "NestJS",
+  "Node.js",
+  "PostgreSQL",
+  "AWS",
+  "Docker",
+  "LangChain",
+  "Astro",
+  "Cloudflare",
 ];
 
 const experience = [
   {
     role: "Software Engineer",
-    company: "Sensand",
-    period: "Dec 2024 — Nov 2025",
+    company: "Hai Helper",
+    period: "May 2026 — Present",
     location: "Melbourne, AU",
+    note: "Full-time",
     bullets: [
-      "Built and maintained geospatial features with Mapbox GL JS — ODM, EOS satellite imagery, and NDVI visualisations.",
-      "Designed a data pipeline to ingest, parse, and normalize carbon registry data from Verra, Gold Standard, and ACCU.",
-      "Developed a modular activity-logging and commenting system across the Land Management platform.",
-      "Maintained auth flows with Auth0 and Permit.io, and built core REST APIs for the carbon trading platform.",
+      "Own the whole platform end to end: frontend, backend, infra, architecture. Small team so there's no one else to hand things to.",
+      "Built the AI layer using OpenAI, LangChain and LangGraph with RAG and vector embeddings for document search.",
+      "Set up and maintain the AWS infrastructure via CDK with staging and production environments.",
+    ],
+  },
+  {
+    role: "Software Engineer",
+    company: "Sensand",
+    period: "Dec 2024 — Aug 2025",
+    location: "Melbourne, AU",
+    note: "Part-time",
+    bullets: [
+      "Part-time role so I had to get up to speed fast and contribute across the stack from day one.",
+      "Designed a data pipeline to ingest and normalize carbon registry data from Verra, Gold Standard and ACCU.",
+      "Built map features using Mapbox GL and the React client for the land management platform.",
+      "Built a modular activity logging and commenting system used across the platform.",
+      "Helped keep auth (Auth0, Permit.io), REST APIs, CI/CD and AWS infra running.",
     ],
   },
   {
     role: "Software Engineer",
     company: "Outback Yak",
-    period: "Jan 2024 — Present",
+    period: "Jul 2024 — Oct 2025",
     location: "Melbourne, AU",
+    note: "Contract",
     bullets: [
-      "Built a full-stack website and admin panel for a Melbourne non-profit — dynamic pages, blog, events, and member registration.",
-      "Built a static, responsive site for Anatomedia's educational platform with Astro, cutting client-side JavaScript for better performance.",
+      "Built the initial Hai Helper web app on contract, which eventually turned into a full-time role.",
+      "Built and deployed Snevic's site with a custom admin panel using Next.js and Payload CMS so the team could manage content themselves.",
+      "Built a static site for Anatomedia using Astro, cutting client-side JS to improve load performance.",
     ],
   },
   {
-    role: "Full Stack Web Developer",
+    role: "Junior .Net Developer",
     company: "Learn Tech",
     period: "Mar 2022 — Feb 2023",
     location: "Nepal",
+    note: "Full-time",
     bullets: [
-      "Developed REST APIs and frontend features for the core web app — inventory and billing modules.",
-      "Worked on database design and backend logic in a fast-moving startup environment.",
-      "Refactored UI modules into Blazor and wrote efficient stored procedures with SQL Server.",
+      "Built REST APIs and frontend across inventory and billing modules for the core web app.",
+      "Refactored the UI into Blazor and wrote stored procedures with Dapper, MSSQL and .NET Core.",
+      "Small team building from scratch, so helped set up coding standards, deployment practices and docs too.",
     ],
   },
-];
-
-const projects = [
   {
-    num: "01",
-    title: "Snevic",
-    category: "nonprofit",
-    description: "Website and admin panel for a Melbourne non-profit — dynamic pages, blog, events, and member registration, all editable by the team.",
-    stack: ["Next.js", "Payload CMS", "Postgres"],
-  },
-  {
-    num: "02",
-    title: "Anatomedia",
-    category: "edtech",
-    description: "A static, fast educational platform engineered to minimise client-side JavaScript and maximise load performance for students.",
-    stack: ["Astro", "SSG", "Performance"],
-  },
-  {
-    num: "03",
-    title: "Land Management",
-    category: "climate",
-    description: "Geospatial carbon platform at Sensand — Mapbox visualisations, NDVI & satellite imagery, and the core REST APIs behind it.",
-    stack: ["Mapbox GL", "REST", "Auth0"],
+    role: "Web Developer Intern",
+    company: "Search Technology",
+    period: "Nov 2021 — Feb 2022",
+    location: "Nepal",
+    note: "Internship",
+    bullets: [
+      "First real job — learned the .NET ecosystem by actually building things.",
+      "Wrote stored procedures, implemented CRUD ops, broke things, fixed them.",
+    ],
   },
 ];
 ---
 
 <IndexLayout>
   <div class="flex flex-col w-full max-w-[780px] mx-auto">
-
     <!-- ── Hero ────────────────────────────────────────────────── -->
     <AnimatedSection class="pt-20 pb-24">
       <div class="flex flex-col gap-7">
         <p class="comment-label">// based in Melbourne, Australia</p>
 
         <div class="flex flex-col gap-3">
-          <h1 class="text-5xl md:text-6xl font-bold leading-[1.06] tracking-tight text-foreground">
+          <h1
+            class="text-5xl md:text-6xl font-bold leading-[1.06] tracking-tight text-foreground"
+          >
             Gaurav Kumar<br />Karki
           </h1>
-          <p class="text-lg text-muted-2 font-light">
-            Software Engineer — full-stack web &amp; geospatial platforms
-          </p>
+          <p class="text-lg text-muted-2 font-light">Software Engineer</p>
         </div>
 
         <p class="text-base text-foreground/60 leading-relaxed max-w-[540px]">
-          I build modern, scalable web applications with a focus on user experience
-          and performance. Around three years turning complex problems into elegant,
-          maintainable software.
+          Mostly full-stack, but happiest in the backend. Designing systems,
+          modelling databases and handling system complexities. All startup
+          experience so used to wearing multiple hats and shipping fast.
+        </p>
+        <p class="text-base text-foreground/60 leading-relaxed max-w-[540px]">
+          When I'm not writing code, I'm usually reading and consuming
+          astrophysics, cosmology, or physics contents and somehow ending up in
+          philosophy.
         </p>
 
         <div class="flex gap-3 flex-wrap">
-          <a href="/work" class="inline-flex items-center px-5 py-2.5 bg-accent text-background rounded-lg font-semibold text-sm hover:bg-accent/90 transition-all hover:scale-[1.02]">
+          <a
+            href="#experience"
+            class="inline-flex items-center px-5 py-2.5 bg-accent text-background rounded-lg font-semibold text-sm hover:bg-accent/90 transition-all hover:scale-[1.02]"
+          >
             View work
           </a>
-          <a href="/resume" class="inline-flex items-center px-5 py-2.5 border border-border rounded-lg text-sm text-foreground/65 hover:text-foreground hover:border-foreground/15 transition-all">
-            Download résumé
-          </a>
-          <a href="https://github.com/gauravkumarkarki07" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-5 py-2.5 border border-border rounded-lg text-sm text-foreground/65 hover:text-foreground hover:border-foreground/15 transition-all">
+          <a
+            href="https://github.com/gauravkumarkarki07"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center px-5 py-2.5 border border-border rounded-lg text-sm text-foreground/65 hover:text-foreground hover:border-foreground/15 transition-all"
+          >
             GitHub →
           </a>
         </div>
@@ -117,67 +157,56 @@ const projects = [
             </div>
             <span class="font-mono text-xs text-muted ml-2">engineer.ts</span>
           </div>
-          <pre class="px-5 py-5 overflow-x-auto"><code><span class="line-num">1</span><span class="syn-keyword">const</span> <span class="syn-var">engineer</span> <span class="syn-bracket">=</span> <span class="syn-bracket">{"{"}</span>
+          <pre
+            class="px-5 py-5 overflow-x-auto"><code><span class="line-num">1</span><span class="syn-keyword">const</span> <span class="syn-var">engineer</span> <span class="syn-bracket">=</span> <span class="syn-bracket">{"{"}</span>
 <span class="line-num">2</span>  <span class="syn-key">name</span><span class="syn-bracket">:</span>       <span class="syn-string">"Gaurav Kumar Karki"</span><span class="syn-bracket">,</span>
 <span class="line-num">3</span>  <span class="syn-key">role</span><span class="syn-bracket">:</span>       <span class="syn-string">"Software Engineer"</span><span class="syn-bracket">,</span>
 <span class="line-num">4</span>  <span class="syn-key">location</span><span class="syn-bracket">:</span>   <span class="syn-string">"Melbourne, AU"</span><span class="syn-bracket">,</span>
-<span class="line-num">5</span>  <span class="syn-key">experience</span><span class="syn-bracket">:</span> <span class="syn-string">"3+ years"</span><span class="syn-bracket">,</span>
-<span class="line-num">6</span>  <span class="syn-key">focus</span><span class="syn-bracket">:</span>      <span class="syn-bracket">[</span><span class="syn-string">"web apps"</span><span class="syn-bracket">,</span> <span class="syn-string">"geospatial"</span><span class="syn-bracket">],</span>
-<span class="line-num">7</span>  <span class="syn-key">stack</span><span class="syn-bracket">:</span>      <span class="syn-bracket">[</span><span class="syn-string">"React"</span><span class="syn-bracket">,</span> <span class="syn-string">"Next.js"</span><span class="syn-bracket">,</span> <span class="syn-string">"TS"</span><span class="syn-bracket">],</span>
-<span class="line-num">8</span>  <span class="syn-key">available</span><span class="syn-bracket">:</span>  <span class="syn-keyword">true</span><span class="syn-bracket">,</span>
-<span class="line-num">9</span><span class="syn-bracket">{"}"}</span></code></pre>
+<span class="line-num">6</span>  <span class="syn-key">stack</span><span class="syn-bracket">:</span>     <span class="syn-bracket">[</span><span class="syn-string">"React"</span><span class="syn-bracket">,</span> <span class="syn-string">"NestJS"</span><span class="syn-bracket">,</span> <span class="syn-string">"TypeScript"</span><span class="syn-bracket">],</span>
+<span class="line-num">8</span><span class="syn-bracket">{"}"}</span></code></pre>
         </div>
       </div>
     </AnimatedSection>
 
     <!-- ── About ────────────────────────────────────────────────── -->
     <AnimatedSection delay={150} class="py-24 border-t border-border">
-      <div class="flex flex-col gap-8">
+      <div class="flex flex-col gap-10">
         <p class="comment-label">// 01 · about</p>
 
-        <div class="flex flex-col gap-4 text-foreground/65 leading-relaxed text-[0.95rem]">
+        <div
+          class="flex flex-col gap-3 text-foreground/60 leading-relaxed text-[0.95rem] max-w-[580px]"
+        >
           <p>
-            I'm passionate about creating elegant solutions to complex problems. My
-            experience spans full-stack development, with a particular focus on modern
-            JavaScript frameworks, cloud technologies, and data-heavy interfaces.
+            Software engineer based in Melbourne. Full-stack, but the backend is
+            where I actually have fun. Databases, APIs, system design,
+            infrastructure. The unglamorous stuff that makes everything work.
           </p>
           <p>
-            When I'm not coding, you'll probably find me working through Melbourne's coffee
-            scene, reading about emerging tech, or poking at an open-source project. I care
-            about software that's fast, accessible, and quietly well-built.
+            All my experience has been at startups, so I'm used to moving fast,
+            picking up whatever needs doing, and figuring things out without a
+            playbook. Currently at Hai Helper owning the whole platform. Before
+            that, contract work and a part-time at a startup called Sensand.
+            Also, started out at a startup in Nepal getting thrown into .NET and
+            SQL Server before I really knew what I was doing. Turned out fine.
           </p>
         </div>
 
         <!-- Stack pills -->
-        <div class="flex flex-col gap-3">
-          <p class="comment-label">// stack i reach for</p>
+        <div class="flex flex-col gap-4">
+          <p class="comment-label">// stacks i usually reach for</p>
           <div class="flex flex-wrap gap-2">
-            {stack.map(s => <span class="tech-pill">{s}</span>)}
-          </div>
-        </div>
-
-        <!-- Now table -->
-        <div class="code-block mt-2">
-          <div class="px-5 py-4 border-b border-border">
-            <p class="comment-label">// now</p>
-          </div>
-          <div class="px-5 py-2">
-            {nowItems.map(item => (
-              <div class="now-row">
-                <span class="now-key">{item.key}</span>
-                {item.href
-                  ? <a href={item.href} class="now-val hover:text-accent transition-colors">{item.val}</a>
-                  : <span class="now-val">{item.val}</span>
-                }
-              </div>
-            ))}
+            {stack.map((s) => <span class="tech-pill">{s}</span>)}
           </div>
         </div>
       </div>
     </AnimatedSection>
 
     <!-- ── Experience ────────────────────────────────────────────── -->
-    <AnimatedSection delay={150} class="py-24 border-t border-border">
+    <AnimatedSection
+      id="experience"
+      delay={150}
+      class="py-24 border-t border-border"
+    >
       <div class="flex flex-col gap-10">
         <div class="flex flex-col gap-1">
           <p class="comment-label">// 02 · experience</p>
@@ -185,60 +214,117 @@ const projects = [
         </div>
 
         <div class="flex flex-col divide-y divide-border">
-          {experience.map(job => (
-            <div class="py-8 first:pt-0 flex flex-col gap-4">
-              <div class="flex flex-col gap-0.5">
-                <h3 class="text-lg font-semibold text-foreground">{job.role}</h3>
-                <span class="text-accent font-medium text-sm">{job.company}</span>
-                <div class="flex gap-3 mt-1">
-                  <span class="font-mono text-xs text-muted">{job.period}</span>
-                  <span class="font-mono text-xs text-muted">{job.location}</span>
+          {
+            experience.map((job) => (
+              <div class="py-8 first:pt-0 flex flex-col gap-4">
+                <div class="flex flex-col gap-0.5">
+                  <h3 class="text-lg font-semibold text-foreground">
+                    {job.role}
+                  </h3>
+                  <span class="text-accent font-medium text-sm">
+                    {job.company}
+                  </span>
+                  <div class="flex gap-3 mt-1 flex-wrap items-center">
+                    <span class="font-mono text-xs text-muted">
+                      {job.period}
+                    </span>
+                    <span class="font-mono text-xs text-muted">
+                      {job.location}
+                    </span>
+                    {job.note && (
+                      <span class="font-mono text-xs text-muted/50 border border-border rounded px-1.5 py-0.5">
+                        {job.note}
+                      </span>
+                    )}
+                  </div>
                 </div>
+                <ul class="flex flex-col gap-2">
+                  {job.bullets.map((b) => (
+                    <li class="flex gap-3 text-sm text-foreground/60 leading-relaxed">
+                      <span class="text-accent mt-0.5 shrink-0">▸</span>
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul class="flex flex-col gap-2">
-                {job.bullets.map(b => (
-                  <li class="flex gap-3 text-sm text-foreground/60 leading-relaxed">
-                    <span class="text-accent mt-0.5 shrink-0">▸</span>
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+            ))
+          }
         </div>
       </div>
     </AnimatedSection>
 
-    <!-- ── Projects ──────────────────────────────────────────────── -->
+    <!-- ── Unbuilt ──────────────────────────────────────────────── -->
     <AnimatedSection delay={150} class="py-24 border-t border-border">
       <div class="flex flex-col gap-10">
-        <div class="flex flex-col gap-1">
-          <p class="comment-label">// 03 · projects</p>
-          <h2 class="text-3xl font-bold mt-2">Things I've built</h2>
+        <div class="flex flex-col gap-2">
+          <p class="comment-label">// 03 · side projects</p>
+          <h2 class="text-3xl font-bold mt-2">Things I haven't built</h2>
+          <p class="text-sm text-muted">
+            an honest list. contributions welcome. moral support also accepted.
+          </p>
         </div>
 
-        <div class="flex flex-col gap-4">
-          {projects.map(p => (
-            <div class="card p-6 flex flex-col gap-4">
-              <div class="flex justify-between items-start">
-                <span class="font-mono text-xs text-muted">{p.num}</span>
-                <span class="cat-tag">{p.category}</span>
-              </div>
-              <div class="flex flex-col gap-2">
-                <h3 class="text-xl font-semibold text-foreground">{p.title}</h3>
-                <p class="text-sm text-foreground/55 leading-relaxed">{p.description}</p>
-              </div>
-              <div class="flex gap-2 flex-wrap">
-                {p.stack.map(s => (
-                  <span class="font-mono text-xs text-muted">{s}</span>
-                )).reduce((acc: any[], el, i, arr) => {
-                  acc.push(el);
-                  if (i < arr.length - 1) acc.push(<span class="text-muted/40 font-mono text-xs">·</span>);
-                  return acc;
-                }, [])}
-              </div>
-            </div>
-          ))}
+        <!-- started, never finished -->
+        <div class="flex flex-col gap-3">
+          <p class="font-mono text-xs text-muted uppercase tracking-widest">
+            // started. never finished.
+          </p>
+          <div class="flex flex-col divide-y divide-border">
+            {
+              startedNeverFinished.map((item) => (
+                <div class="py-4 flex items-start justify-between gap-4">
+                  <span class="text-sm text-foreground/70">{item}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- procrastinating -->
+        <div class="flex flex-col gap-3">
+          <p class="font-mono text-xs text-muted uppercase tracking-widest">
+            // actively procrastinating
+          </p>
+          <div class="flex flex-col divide-y divide-border">
+            {
+              activelyProcrastinating.map((item) => (
+                <div class="py-4 flex items-start justify-between gap-4">
+                  <span class="text-sm text-foreground/70">{item}</span>
+                  <span class="font-mono text-xs text-muted shrink-0">
+                    status: "soon"
+                  </span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- one day -->
+        <div class="flex flex-col gap-3">
+          <p class="font-mono text-xs text-muted uppercase tracking-widest">
+            // hoping to build one day
+          </p>
+          <div class="flex flex-col divide-y divide-border">
+            {
+              hopingToBuildOneDay.map((item) => (
+                <div class="py-4 flex items-start justify-between gap-4">
+                  <span class="text-sm text-foreground/70">{item}</span>
+                  <span class="font-mono text-xs text-muted shrink-0">
+                    eta: unknown
+                  </span>
+                </div>
+              ))
+            }
+            {
+              hopingToBuildOneDay.length === 0 && (
+                <div class="py-4">
+                  <span class="font-mono text-xs text-muted">
+                    // coming soon...
+                  </span>
+                </div>
+              )
+            }
+          </div>
         </div>
       </div>
     </AnimatedSection>
@@ -248,35 +334,40 @@ const projects = [
       <div class="flex flex-col gap-8">
         <div class="code-block p-6 flex flex-col gap-6">
           <div class="flex flex-col gap-1">
-            <p class="terminal-prompt">$ ./say-hello --to gaurav</p>
+            <p class="terminal-prompt">$ ./hit-me-up</p>
           </div>
 
           <div class="flex flex-col gap-2">
-            <h2 class="text-3xl font-bold text-foreground">Let's build something good.</h2>
-            <p class="text-sm text-foreground/55 leading-relaxed">
-              Open to engineering roles and select freelance work. The quickest ways to reach me are right here.
-            </p>
+            <h2 class="text-3xl font-bold text-foreground">
+              You can get in touch with me
+            </h2>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <a href="https://www.linkedin.com/in/gaurav-kumar-karki/" target="_blank" rel="noopener noreferrer" class="contact-card">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <a
+              href="https://www.linkedin.com/in/gaurav-kumar-karki/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-card"
+            >
               <span class="comment-label">// preferred</span>
               <div class="flex justify-between items-center">
-                <span class="text-sm font-semibold text-foreground">LinkedIn</span>
+                <span class="text-sm font-semibold text-foreground"
+                  >LinkedIn</span
+                >
                 <span class="text-muted text-sm">→</span>
               </div>
             </a>
-            <a href="https://github.com/gauravkumarkarki07" target="_blank" rel="noopener noreferrer" class="contact-card">
+            <a
+              href="https://github.com/gauravkumarkarki07"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-card"
+            >
               <span class="comment-label">// code</span>
               <div class="flex justify-between items-center">
-                <span class="text-sm font-semibold text-foreground">GitHub</span>
-                <span class="text-muted text-sm">→</span>
-              </div>
-            </a>
-            <a href="/resume" class="contact-card">
-              <span class="comment-label">// the full story</span>
-              <div class="flex justify-between items-center">
-                <span class="text-sm font-semibold text-foreground">Résumé</span>
+                <span class="text-sm font-semibold text-foreground">GitHub</span
+                >
                 <span class="text-muted text-sm">→</span>
               </div>
             </a>
@@ -284,6 +375,5 @@ const projects = [
         </div>
       </div>
     </AnimatedSection>
-
   </div>
 </IndexLayout>

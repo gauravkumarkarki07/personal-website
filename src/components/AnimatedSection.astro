@@ -2,11 +2,13 @@
 export interface Props {
   delay?: number;
   class?: string;
+  id?: string;
 }
-const { delay = 0, class: className } = Astro.props;
+const { delay = 0, class: className, id } = Astro.props;
 ---
 
 <div
+  id={id}
   class:list={["animate-section opacity-0", className]}
   style={`animation-delay: ${delay}ms`}
 >
